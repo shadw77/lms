@@ -19,7 +19,7 @@ class CourseController extends Controller
                   ->orWhere('description', 'LIKE', "%{$search}%");
             });
         }
-        $courses = CourseResource::collection($query->with('lessons')->get());
+        $courses = CourseResource::collection($query->with('lessons')->paginate(10));
         
         return view('courses.index', compact('courses'));
     }

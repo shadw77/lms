@@ -19,7 +19,7 @@ class LessonController extends Controller
                   ->orWhere('content', 'LIKE', "%{$search}%");
             });
         }
-        $lessons = $query->get();
+        $lessons = $query->paginate(10)->withQueryString();
         
         return view('lessons.index', compact('lessons'));
     }

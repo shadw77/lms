@@ -83,6 +83,7 @@
                         </x-bladewind::modal>
                     </tr>
                 @endforeach
+                {{ $courses->links() }}
             </x-bladewind::table>
         </div>
     </div>
