@@ -6,11 +6,21 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (auth()->user()->is_admin)
-            <div class="d-grid gap-2 d-flex justify-content-end mb-2">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 bg-white shadow rounded-lg mb-6">
+                @if (auth()->user()->is_admin)
                 <x-bladewind::button onclick="window.location.href='{{ route('courses.create') }}'">Create Course</x-bladewind::button>
+                @endif
+                <form method="GET" action="{{ route('courses.index') }}" class="flex items-center gap-2">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Search by title or description"
+                        class="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+                    <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
+                        🔍 Search
+                    </button>
+                </form>
             </div>
-            @endif
 
             <x-bladewind::table>
                 <x-slot name="header">

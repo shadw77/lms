@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Redirect;
 
 class LessonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $lessons = Lesson::all();
+        $query = Lesson::query();
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('content', 'LIKE', "%{$search}%");
+            });
+        }
+        $lessons = $query->get();
         
         return view('lessons.index', compact('lessons'));
     }

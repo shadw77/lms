@@ -9,9 +9,17 @@ use App\Http\Resources\CourseResource;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = CourseResource::collection(Course::with('lessons')->get());
+        $query = Course::query();
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+        $courses = CourseResource::collection($query->with('lessons')->get());
         
         return view('courses.index', compact('courses'));
     }
