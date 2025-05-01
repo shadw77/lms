@@ -6,6 +6,10 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="d-grid gap-2 d-flex justify-content-end mb-2">
+                <x-bladewind::button onclick="window.location.href='{{ route('courses.create') }}'">Create Course</x-bladewind::button>
+            </div>
+
             <x-bladewind::table>
                 <x-slot name="header">
                     <th>Title</th>
@@ -16,7 +20,31 @@
                     <tr>
                         <td>{{ $course->title }}</td>
                         <td>{{ $course->description }}</td>
-                        <td></td>
+                        <td>
+                            <button onclick="showModal('course_{{ $course->id }}')" style="cursor:pointer;">
+                                <x-bladewind::icon name="eye" class="!h-6 !w-6 text-emerald-500 me-2" />
+                            </button>
+                            <button onclick="window.location.href='{{ route('courses.edit', $course->id) }}'" style="cursor:pointer;">
+                                <x-bladewind::icon name="pencil" class="!h-6 !w-6 text-amber-500" />
+                            </button>
+                            <form action="{{ route('courses.destroy', $course->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure?')">
+                                    <x-bladewind::icon name="trash" class="!h-6 !w-6 text-danger" />
+                                </button>
+                            </form>
+                        </td>
+                        <x-bladewind::modal
+                            type="info"
+                            title="{{ $course->title }}"
+                            name="course_{{ $course->id }}">
+                            <div>
+                                <strong>Course:</strong> {{ $course->title ?? 'N/A' }}<br><br>
+                                <strong>Description:</strong><br>
+                                {!! nl2br(e($course->description)) !!}
+                            </div>
+                        </x-bladewind::modal>
                     </tr>
                 @endforeach
             </x-bladewind::table>

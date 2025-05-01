@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class LessonController extends Controller
 {
@@ -16,11 +18,55 @@ class LessonController extends Controller
 
     public function create()
     {
-        return view('lessons.create');
+        $courses = Course::get();
+        return view('lessons.create', compact('courses'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'string|min:3|required',
+            'content' => 'string|min:10|required',
+            'course_id' => 'required|exists:courses,id'
+        ]);
         
+        Lesson::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'course_id' => $request->course_id
+        ]);
+
+        return Redirect::route('lessons.index')->with('message', 'Lesson Created Successfully');
+    }
+
+    public function edit(Lesson $lesson)
+    {
+        $courses = Course::get();
+
+        return view('lessons.edit', compact('lesson', 'courses'));
+    }
+
+    public function update(Request $request, Lesson $lesson)
+    {
+        $request->validate([
+            'title' => 'string|min:3|required',
+            'content' => 'string|min:10|required',
+            'course_id' => 'required|exists:courses,id'
+        ]);
+        
+        $lesson->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'course_id' => $request->course_id
+        ]);
+
+        return Redirect::route('lessons.index')->with('message', 'Lesson Updated Successfully');
+    }
+
+    public function destroy(Lesson $lesson)
+    {
+        $lesson->delete();
+
+        return Redirect::back()->with('message', 'Lesson deleted successfully');
     }
 }
