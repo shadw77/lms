@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\Enrollment;
 
-class EnrolllmentTest extends TestCase
+class EnrollmentTest extends TestCase
 {
     public function test_user_can_enroll_in_course()
     {
