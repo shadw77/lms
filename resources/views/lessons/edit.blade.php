@@ -10,13 +10,19 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
-                    <x-bladewind::input label="Title" name="title" value="{{ $lesson->title }}" />
+                    <x-bladewind::input required="true" label="Title" name="title" value="{{ $lesson->title }}" />
+                    @error('title')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <x-bladewind::textarea placeholder="Content" rows="5" name="content" selected_value="{{ $lesson->content }}"></x-bladewind::textarea>
+                    <x-bladewind::textarea required="true" placeholder="Content" rows="5" name="content" selected_value="{{ $lesson->content }}"></x-bladewind::textarea>
+                    @error('content')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <x-bladewind::select label_key="title" selected_value="{{ $lesson->course_id }}" name="course_id" value_key="id" :data="$courses" label="Choose course title"/>
+                    <x-bladewind::select required="true" label_key="title" selected_value="{{ $lesson->course_id }}" name="course_id" value_key="id" :data="$courses" label="Choose course title"/>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Save</button>

@@ -9,13 +9,22 @@
             <form action="{{ route('lessons.store') }}" method="post">
                 @csrf
                 <div class="mb-3">
-                    <x-bladewind::input label="Title" name="title" />
+                    <x-bladewind::input required="true" label="Title" name="title" value="{{ old('title') }}" />
+                    @error('title')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <x-bladewind::textarea placeholder="Content" rows="5" name="content"></x-bladewind::textarea>
+                    <x-bladewind::textarea required="true" placeholder="Content" selected_value="{{ old('content') }} " rows="5" name="content"></x-bladewind::textarea>
+                    @error('content')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <x-bladewind::select label_key="title" name="course_id" value_key="id" :data="$courses" label="Choose course title"/>
+                    <x-bladewind::select required="true" label_key="title" name="course_id" value_key="id" :data="$courses" label="Choose course title"/>
+                    @error('course_id')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Submit</button>

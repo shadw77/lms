@@ -5,13 +5,19 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $courseCount = Course::count();
+    $lessonCount = Lesson::count();
+    $userCount = User::count();
+    return view('dashboard', compact('courseCount', 'lessonCount', 'userCount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

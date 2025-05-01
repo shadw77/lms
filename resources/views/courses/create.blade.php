@@ -9,10 +9,16 @@
             <form action="{{ route('courses.store') }}" method="post">
                 @csrf
                 <div class="mb-3">
-                    <x-bladewind::input label="Title" name="title" />
+                    <x-bladewind::input label="Title" required="true" name="title" value="{{ old('title') }}" />
+                    @error('title')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <x-bladewind::textarea placeholder="Description" rows="5" name="description"></x-bladewind::textarea>
+                    <x-bladewind::textarea required="true" placeholder="Description" value="{{ old('description') }}" rows="5" name="description"></x-bladewind::textarea>
+                    @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Submit</button>

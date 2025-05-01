@@ -42,18 +42,18 @@
                         <td>{{ $lesson->course->title}}</td>
                         <td>
                             <button onclick="showModal('lesson_{{ $lesson->id }}')" style="cursor:pointer;">
-                                <x-bladewind::icon name="eye" class="!h-6 !w-6 text-emerald-500 me-2" />
+                                <x-bladewind::icon name="eye" class="!h-5 !w-5 text-emerald-500 me-1" />
                             </button>
                             @if (auth()->user()->is_admin)
                             <button onclick="window.location.href='{{ route('lessons.edit', $lesson->id) }}'" style="cursor:pointer;">
-                                <x-bladewind::icon name="pencil" class="!h-6 !w-6 text-amber-500" />
+                                <x-bladewind::icon name="pencil" class="!h-5 !w-5 text-amber-500" />
                             </button>
                             
                             <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure?')">
-                                    <x-bladewind::icon name="trash" class="!h-6 !w-6 text-danger" />
+                                    <x-bladewind::icon name="trash" class="!h-5 !w-5 text-danger" />
                                 </button>
                             </form>
                             @endif
