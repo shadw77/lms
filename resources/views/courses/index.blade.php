@@ -6,9 +6,11 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (auth()->user()->is_admin)
             <div class="d-grid gap-2 d-flex justify-content-end mb-2">
                 <x-bladewind::button onclick="window.location.href='{{ route('courses.create') }}'">Create Course</x-bladewind::button>
             </div>
+            @endif
 
             <x-bladewind::table>
                 <x-slot name="header">
@@ -32,6 +34,7 @@
                                 </span>    
                                 </button>
                             </form>
+                            @if (auth()->user()->is_admin)
                             <button onclick="window.location.href='{{ route('courses.edit', $course->id) }}'" style="cursor:pointer;">
                                 <x-bladewind::icon name="pencil" class="!h-6 !w-6 text-amber-500" />
                             </button>
@@ -42,6 +45,7 @@
                                     <x-bladewind::icon name="trash" class="!h-6 !w-6 text-danger" />
                                 </button>
                             </form>
+                            @endif
                         </td>
                         <x-bladewind::modal
                             type="info"

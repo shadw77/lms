@@ -19,11 +19,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('lessons' , LessonController::class);
-    Route::resource('courses', CourseController::class);
 
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
     Route::get('/user/enrolled-courses', [EnrollmentController::class, 'getUserEnrolledCourses'])->name('enrollments.my-courses');
+});
+Route::get('lessons', [LessonController::class, 'index'])->name('lessons.index');
+Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('lessons' , LessonController::class)->except(['index']);
+    Route::resource('courses', CourseController::class)->except(['index']);    
 });
 
 require __DIR__.'/auth.php';

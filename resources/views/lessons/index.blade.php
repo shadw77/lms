@@ -8,9 +8,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="d-grid gap-2 d-flex justify-content-end mb-2">
+                @if (auth()->user()->is_admin)
                 <x-bladewind::button  no_data_message="The lessons is empty"
                 onclick="window.location.href='{{ route('lessons.create') }}'"
                 >Create Lesson</x-bladewind::button>
+                @endif
             </div>
             <x-bladewind::table>
                 <x-slot name="header">
@@ -28,9 +30,11 @@
                             <button onclick="showModal('lesson_{{ $lesson->id }}')" style="cursor:pointer;">
                                 <x-bladewind::icon name="eye" class="!h-6 !w-6 text-emerald-500 me-2" />
                             </button>
+                            @if (auth()->user()->is_admin)
                             <button onclick="window.location.href='{{ route('lessons.edit', $lesson->id) }}'" style="cursor:pointer;">
                                 <x-bladewind::icon name="pencil" class="!h-6 !w-6 text-amber-500" />
                             </button>
+                            
                             <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
@@ -38,6 +42,7 @@
                                     <x-bladewind::icon name="trash" class="!h-6 !w-6 text-danger" />
                                 </button>
                             </form>
+                            @endif
                         </td>
                         <x-bladewind::modal
                             type="info"
