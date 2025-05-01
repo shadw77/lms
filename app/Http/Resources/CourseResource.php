@@ -16,7 +16,8 @@ class CourseResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'description' => $this->description
+            'description' => $this->description,
+            'lessons' => new LessonResource($this->whenLoaded('lessons')),
         ];
     }
 }

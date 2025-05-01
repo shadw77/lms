@@ -49,6 +49,15 @@
                             name="course_{{ $course->id }}">
                             <div>
                                 <strong>Course:</strong> {{ $course->title ?? 'N/A' }}<br><br>
+                                <strong>Lessons:</strong>
+                                    <ul class="list-disc list-inside text-gray-700 mt-1">
+                                        @forelse ($course->lessons as $lesson)
+                                            <li>{{ $lesson->title }}</li>
+                                        @empty
+                                            <h6 class="text-danger">There is no lessons yet!</h6>
+                                        @endforelse
+                                    </ul>
+                                    <br>
                                 <strong>Description:</strong><br>
                                 {!! nl2br(e($course->description)) !!}
                             </div>

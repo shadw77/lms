@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('courses', CourseController::class);
 
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
+    Route::get('/user/enrolled-courses', [EnrollmentController::class, 'getUserEnrolledCourses'])->name('enrollments.my-courses');
 });
 
 require __DIR__.'/auth.php';

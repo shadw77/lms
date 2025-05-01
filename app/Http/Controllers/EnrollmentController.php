@@ -24,4 +24,10 @@ class EnrollmentController extends Controller
             return Redirect::route('courses.index')->with('message', 'Enrollment Done');
         }
     }
+
+    public function getUserEnrolledCourses()
+    {
+        $my_enrollments = Enrollment::with('user', 'course')->where('user_id', Auth::id())->get();
+        return view('enrollments.enrolled-courses', compact('my_enrollments'));
+    }
 }

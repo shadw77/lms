@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Resources\CourseResource;
 
 class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::all();
+        $courses = CourseResource::collection(Course::with('lessons')->get());
         
         return view('courses.index', compact('courses'));
     }
