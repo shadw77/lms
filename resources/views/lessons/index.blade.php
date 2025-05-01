@@ -4,7 +4,11 @@
             {{ __('Lessons') }}
         </h2>
     </x-slot>
-    
+    @if (session('message'))
+        <x-bladewind::alert type="success" shade="dark" class="container">
+            {{ session('message') }}
+        </x-bladewind::alert>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 bg-white shadow rounded-lg mb-6">
