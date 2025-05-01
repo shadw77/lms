@@ -33,8 +33,8 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'string|min:3|required',
-            'content' => 'string|min:10|required',
+            'title' => 'required|string|min:3',
+            'content' => 'required|string|min:10',
             'course_id' => 'required|exists:courses,id'
         ]);
         
@@ -57,8 +57,8 @@ class LessonController extends Controller
     public function update(Request $request, Lesson $lesson)
     {
         $request->validate([
-            'title' => 'string|min:3|required',
-            'content' => 'string|min:10|required',
+            'title' => 'required|string|min:3',
+            'content' => 'required|string|min:10',
             'course_id' => 'required|exists:courses,id'
         ]);
         

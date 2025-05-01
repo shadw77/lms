@@ -32,8 +32,8 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'string|min:3|required',
-            'description' => 'string|min:10|required'
+            'title' => 'required|string|min:3',
+            'description' => 'required|string|min:10'
         ]);
         
         Course::create([
@@ -53,8 +53,8 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $request->validate([
-            'title' => 'string|min:3|required',
-            'description' => 'string|min:10|required',
+            'title' => 'required|string|min:3',
+            'description' => 'required|string|min:10',
         ]);
         
         $course->update([
